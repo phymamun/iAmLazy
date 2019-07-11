@@ -1,30 +1,53 @@
 #!/bin/bash
 
-# Update Cache
-sudo apt update -y
+function install() {
+    # 
+    # Installs ibus-avro
+    #
 
-# Install the Must have packages
-sudo apt install -y git libibus-1.0-dev ibus autotools-dev automake autoconf gjs gir1.2-ibus-1.0
+    # Update Cache
+    sudo apt update -y
 
-# Clone the base repo
-git clone git://github.com/sarim/ibus-avro.git
-cd ibus-avro
+    # Install the Must have packages
+    sudo apt install -y git libibus-1.0-dev ibus autotools-dev automake autoconf gjs gir1.2-ibus-1.0
 
-# Make Configurations
-aclocal && autoconf && automake --add-missing
-./configure --prefix=/usr
+    # Clone the base repo
+    git clone git://github.com/sarim/ibus-avro.git
+    cd ibus-avro
 
-# Install using cmake
-sudo make install
+    # Make Configurations
+    aclocal && autoconf && automake --add-missing
+    ./configure --prefix=/usr
 
-# Make .deb
-# sudo checkinstall
+    # Install using cmake
+    sudo make install
 
-# Removing downloaded repo
-cd ..
-rm -rf ibus-avro
+    # Make .deb
+    # sudo checkinstall
 
-# iBus must be restarted
-ibus restart
+    # Removing downloaded repo
+    cd ..
+    rm -rf ibus-avro
+
+    # iBus must be restarted
+    ibus restart
+}
+
+function remove() {
+    #
+    # Removes ibus-avro
+    #
+
+    rm ${pkgdatadir}/../ibus/component/ibus-avro.xml
+	rm ${pkgdatadir}/../glib-2.0/schemas/com.omicronlab.avro.gschema.xml
+	glib-compile-schemas ${pkgdatadir}/../glib-2.0/schemas/
+	rm -rf ${pkgdatadir}
+}
+
+if [[ $1 == 'i' ]]; then
+    install
+elif [[ $1 == 'r' ]]; then
+    remove
+fi
 
 exit
