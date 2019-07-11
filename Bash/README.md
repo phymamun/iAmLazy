@@ -5,7 +5,7 @@
 # Bash Scripts written from Lazyness stays here
 
 ```bash
-#!/usr/bin/bash
+#!/bin/bash
 
 ME="Lazy";
 SPEECH="Let me to be ";
@@ -20,3 +20,9 @@ echo -e $ME $SPEECH
 - Added Code::Blocks Installer
 - Added Theme Customizer on XFCE (Debian)
 - Added CI (git)
+- Added ibus-avro installer (For Mamun) [`~# ./Avro_Installer.sh i`]
+- Adder installer for popcorntime [`~# ./popcorntime.sh`]
+- Added Customizer for 'Visual Studio Code'
+- Ported 'Favourite Packages Installer'
+- nginx, mariadb, phpmyadmin stack installer
+- XAMPP
