@@ -9,7 +9,7 @@ function install() {
     sudo apt update -y
 
     # Install the Must have packages
-    sudo apt install -y git libibus-1.0-dev ibus autotools-dev automake autoconf gjs gir1.2-ibus-1.0 build-essentials
+    sudo apt install -y git libibus-1.0-dev ibus autotools-dev automake autoconf gjs gir1.2-ibus-1.0 build-essential
 
     # Clone the base repo
     git clone git://github.com/sarim/ibus-avro.git
