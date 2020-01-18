@@ -5,7 +5,7 @@
 # Created: Saturday, 3rd August 2019 2:38:42 pm
 # Author: Rakibul Yeasin (ryeasin03@gmail.com)
 # -----
-# Last Modified: Saturday, 18th January 2020 12:31:37 pm
+# Last Modified: Saturday, 18th January 2020 12:55:38 pm
 # Modified By: Rakibul Yeasin (ryeasin03@gmail.com)
 # -----
 # Copyright (c) 2019 Slishee
@@ -35,7 +35,7 @@ def install():
 	if _platform.startswith('linux'):
 		path = os.environ['HOME'] + '/.config/Code/User/'
 	elif _platform.startswith('win'):
-		path = r'%APPDATA%\Code\User\'
+		path = os.path.normpath('%APPDATA%\Code\User\')
 	elif _platform == 'darwin':
 		path = os.environ['HOME'] + \
 			'/Library/Application Support/Code/User/'
@@ -79,7 +79,7 @@ def configure():
 	if _platform.startswith('linux'):
 		path = os.environ['HOME'] + '/.config/Code/User/settings.json'
 	elif _platform.startswith('win'):
-		path = r'%APPDATA%\Code\User\settings.json'
+		path = os.path.normpath('%APPDATA%\Code\User\settings.json')
 	elif _platform == 'darwin':
 		path = os.environ['HOME'] + '/Library/Application Support/Code/User/settings.json'
 	try:
