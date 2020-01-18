@@ -3,12 +3,8 @@
 """
 #   Installer for my favourite packages
 #   on Termux on Android.
-#   It's a helper for me
-#   if i somehow destroy my system (it happens to me)
-#   Then I would be able to automate the
-#   boring staffs.
 #   Author: Rakibul Yeasin (Totul)
-#   FB: https://www.facebook.com/rytotul
+#   FB: https://www.facebook.com/dreygur
 #
 #   ***Not Licensed***
 """
@@ -28,7 +24,7 @@ class ZSH():
 		#   Installs and customize zsh shell
 		_current_directory = getcwd()
 		# Install termux-zsh
-		system('git clone https://github.com/rytotul/termux-zsh/.git "$HOME/termux-ohmyzsh" --depth 1')
+		system('git clone https://github.com/dreygur/termux-zsh/.git "$HOME/termux-ohmyzsh" --depth 1')
 		system('mv "$HOME/.termux" "$HOME/.termux.bak.$(date +%Y.%m.%d-%H:%M:%S)"')
 		system('cp -R "$HOME/termux-zsh/.termux" "$HOME/.termux"')
 		# Downloads and Copies oh-my-zsh plugin
@@ -76,8 +72,8 @@ def banner():
 	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	\tHello {0}, Welcome!!!
 	\tAuthor: Rakibul Yeasin (Totul)
-	\tFB: https://www.facebook.com/rytotul
-	\tGithub: https://www.github.com/rytotul
+	\tFB: https://www.facebook.com/dreygur
+	\tGithub: https://www.github.com/dreygur
 	+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 	"""
 	print(text.format("Android"))

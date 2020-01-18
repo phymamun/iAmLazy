@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+###
+# File: Config vscode for me.py
+# Created: Saturday, 3rd August 2019 2:38:42 pm
+# Author: Rakibul Yeasin (ryeasin03@gmail.com)
+# -----
+# Last Modified: Saturday, 18th January 2020 12:31:37 pm
+# Modified By: Rakibul Yeasin (ryeasin03@gmail.com)
+# -----
+# Copyright (c) 2019 Slishee
+###
 
 """
 	Installs my favourite plugins and theme for VSCode
@@ -7,14 +18,30 @@
 		* Support to make VSCODE configured as I like
 """
 
-# Import
+# Import necessary modules
+from os import system as c
+from sys import platform as _platform
+import json
 import sys
 import time
-from os import system as c
+import os
+
+author = "Rakibul Yeasin"
+company = "Slishee"
+email = "ryeasin03@gmail.com"
 
 # Function to Install the necessay plugins
 def install():
-	cmd = 'code --install-extension ' # Common part of the installation command
+	if _platform.startswith('linux'):
+		path = os.environ['HOME'] + '/.config/Code/User/'
+	elif _platform.startswith('win'):
+		path = r'%APPDATA%\Code\User\'
+	elif _platform == 'darwin':
+		path = os.environ['HOME'] + \
+			'/Library/Application Support/Code/User/'
+
+	# Common part of the installation command
+	cmd = f'code --extensions-dir {path} --install-extension '
 	f = ' --force'
 
 	"""
@@ -33,6 +60,9 @@ def install():
 	c(cmd + 'eg2.vscode-npm-script' + f) # nmp Support from VSCode
 	c(cmd + 'felixfbecker.php-debug' + f) # PHP Debugging
 	c(cmd + 'formulahendry.terminal' + f) # VSCode Terminal
+	c(cmd + 'psioniq.psi-header' + f) # psioniq File Header
+	c(cmd + 'ritwickdey.LiveServer' + f) # Live Server
+
 
 	"""
 		Themes
@@ -45,13 +75,105 @@ def configure():
 		Till then this function is useless.
 		* Have a nice cup of coffee in your dream!
 	"""
-	pass
+
+	if _platform.startswith('linux'):
+		path = os.environ['HOME'] + '/.config/Code/User/settings.json'
+	elif _platform.startswith('win'):
+		path = r'%APPDATA%\Code\User\settings.json'
+	elif _platform == 'darwin':
+		path = os.environ['HOME'] + '/Library/Application Support/Code/User/settings.json'
+	try:
+		settings = {
+			# Editor
+			"editor.formatOnPaste": True,
+			"editor.formatOnType": True,
+			"editor.multiCursorModifier": "ctrlCmd",
+			"editor.tabCompletion": "on",
+			"editor.tabSize": 4,
+			# Workbench Settings
+			"workbench.colorTheme": "Default Dark+",
+			"workbench.startupEditor": "none",
+			# Files
+			"files.autoSave": "onFocusChange",
+			"files.trimTrailingWhitespace": True,
+			# Use ES6
+			"jshint.options": {
+				"esversion": 6
+			},
+			# PSI Plugin
+			"psi-header.changes-tracking": {
+				"isActive": True,
+				"modAuthor": "Modified By: ",
+				"modDate": "Last Modified: ",
+				"modDateFormat": "DD MM YYYY, h:mm:ss A",
+				"autoHeader": "manualSave",
+			},
+			"psi-header.variables": [
+				["company", company],
+				["author", author],
+				["authoremail", email]
+			],
+			"psi-header.lang-config": [
+				{
+					"language": "python",
+					"begin": "###",
+					"prefix": "# ",
+					"end": "###",
+					"blankLinesAfter": 0,
+					"beforeHeader": [
+						"#!/usr/bin/env python3",
+						"# -*- coding:utf-8 -*-"
+					]
+				},
+				{
+					"language": "shellscript",
+					"begin": "###",
+					"prefix": "# ",
+					"end": "###",
+					"blankLinesAfter": 0,
+					"beforeHeader": [
+						"#!/bin/bash"
+					]
+				},
+				{
+					"language": "javascript",
+					"begin": "/*",
+					"prefix": " * ",
+					"end": " */",
+					"blankLinesAfter": 0
+				}
+			],
+			"psi-header.templates": [
+				{
+					"language": "*",
+					"template": [
+						"File: <<filename>>",
+						"Created: <<filecreated('dddd, Do MMMM YYYY h:mm:ss a')>>",
+						"Author: <<author>> (<<authoremail>>)",
+						"-----",
+						"Last Modified: <<dateformat('dddd, Do MMMM YYYY h:mm:ss a')>>",
+						"Modified By: <<author>> (<<authoremail>>)",
+						"-----",
+						"Copyright (c) <<year>> <<company>>"
+						""
+					]
+				}
+			]
+		}
+
+		with open(path, 'w') as settings_file:
+			json.dump(settings, settings_file, indent=4)
+
+		print('VSCode Configured Successfully!')
+
+	except Exception as e:
+		print(f'There was an error.\n{e}\nPlease Try again!')
 
 def main():
 	"""
-		THe main Function of this useless Script.
+		The main Function of this useless Script.
 		You may not like/love this but it will help you definitely {or tear-down you :) }.
-		Love from Ralibul
+		Love from Rakibul
 	"""
 	try:
 		install()
