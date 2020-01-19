@@ -5,7 +5,7 @@
 # Created: Saturday, 3rd August 2019 2:38:42 pm
 # Author: Rakibul Yeasin (ryeasin03@gmail.com)
 # -----
-# Last Modified: Saturday, 18th January 2020 12:55:38 pm
+# Last Modified: Sunday, 19th January 2020 11:03:34 pm
 # Modified By: Rakibul Yeasin (ryeasin03@gmail.com)
 # -----
 # Copyright (c) 2019 Slishee
@@ -32,16 +32,8 @@ email = "ryeasin03@gmail.com"
 
 # Function to Install the necessay plugins
 def install():
-	if _platform.startswith('linux'):
-		path = os.environ['HOME'] + '/.config/Code/User/'
-	elif _platform.startswith('win'):
-		path = os.path.normpath('%APPDATA%\Code\User\')
-	elif _platform == 'darwin':
-		path = os.environ['HOME'] + \
-			'/Library/Application Support/Code/User/'
-
 	# Common part of the installation command
-	cmd = f'code --extensions-dir {path} --install-extension '
+	cmd = f'code --install-extension '
 	f = ' --force'
 
 	"""
