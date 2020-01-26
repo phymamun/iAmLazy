@@ -3,14 +3,16 @@
 echo -e "Installing Oracle 11g XE..."
 
 
-unzip oracle-xe-11.2.0-1.0.x86_64.rpm.zip
-sudo apt-get install alien libaio1 unixodbc
-cd Disk1/
-sudo alien --scripts -d oracle-xe-11.2.0-1.0.x86_64.rpm
+# unzip oracle-xe-11.2.0-1.0.x86_64.rpm.zip
+# sudo apt-get install alien libaio1 unixodbc
+# sudo alien --scripts -d oracle-*.rpm
+# sudo alien -i --scripts oracle-*.rpm
 
-sudo mkdir -p /sbin/chkconfig
-
-echo "#!/bin/bash
+echo -e "ALien..."
+sudo touch /sbin/chkconfig
+echo -e "Config creation success..."
+PTH_CONFIG=$(cat <<END
+#!/bin/bash
 # Oracle 11gR2 XE installer chkconfig hack for Ubuntu
 file=/etc/init.d/oracle-xe
 if [[ ! `tail -n1 $file | grep INIT` ]]; then
@@ -24,19 +26,28 @@ if [[ ! `tail -n1 $file | grep INIT` ]]; then
     echo '# Short-Description: Oracle 11g Express Edition' >> $file
     echo '### END INIT INFO' >> $file
 fi
-update-rc.d oracle-xe defaults 80 01" | sudo tee /sbin/chkconfig
+update-rc.d oracle-xe defaults 80 01
+END
+)
+echo $PTH_CONFIG # | sudo tee /sbin/chkconfig
 
+
+echo -e "Done!"
 sudo chmod 755 /sbin/chkconfig
 
-echo "# Oracle 11g XE kernel parameters 
-fs.file-max=6815744  
-net.ipv4.ip_local_port_range=9000 65000  
-kernel.sem=250 32000 100 128 
+echo -e "Changing Kernel Parameters..."
+echo "# Oracle 11g XE kernel parameters
+fs.file-max=6815744
+net.ipv4.ip_local_port_range=9000 65000
+kernel.sem=250 32000 100 128
 kernel.shmmax=536870912" | sudo tee /etc/sysctl.d/60-oracle.conf
 
 sudo service procps start
 
+echo -e "Kinda rebooting..."
 sudo sysctl -q fs.file-max
+
+echo -e "Writing loader script..."
 
 echo "#!/bin/sh
 case '$1' in
@@ -49,13 +60,12 @@ start)
     echo error
     exit 1
     ;;
-
 esac" | sudo tee /etc/rc2.d/S01shm_load
 
 sudo chmod 755 /etc/rc2.d/S01shm_load
 
-sudo ln -s /usr/bin/awk /bin/awk 
-sudo mkdir /var/lock/subsys 
+sudo ln -s /usr/bin/awk /bin/awk
+sudo mkdir /var/lock/subsys
 sudo touch /var/lock/subsys/listener
 
 sysctl -p /etc/sysctl.d/60-oracle.conf
