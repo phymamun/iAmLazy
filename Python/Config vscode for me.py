@@ -71,7 +71,7 @@ def configure():
 	if _platform.startswith('linux'):
 		path = os.environ['HOME'] + '/.config/Code/User/settings.json'
 	elif _platform.startswith('win'):
-		path = os.path.normpath('%APPDATA%\Code\User\settings.json')
+		path = r'%APPDATA%\Code\User\settings.json'
 	elif _platform == 'darwin':
 		path = os.environ['HOME'] + '/Library/Application Support/Code/User/settings.json'
 	try:
