@@ -2,7 +2,7 @@
 
 echo -e "[+] Installing Oracle 11g XE..."
 
-
+sudo apt-get update -y
 # unzip oracle-xe-11.2.0-1.0.x86_64.rpm.zip
 sudo apt-get install alien libaio1 unixodbc
 # sudo alien --scripts -d oracle-*.rpm
