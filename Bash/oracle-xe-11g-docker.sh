@@ -1,11 +1,12 @@
 #!/bin/bash
 
 install() {
-  sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-  sudo sh -c "echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
-  sudo apt-get update
+  curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+  echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' > /etc/apt/sources.list.d/docker.list
+  sudo apt-get update -y
 
-  sudo apt-get install lxc-docker
+#   sudo apt-get install lxc-docker
+  apt-get install docker-ce
   docker pull alexeiled/docker-oracle-xe-11g
 }
 
