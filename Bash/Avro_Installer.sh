@@ -39,9 +39,9 @@ function remove() {
     #
 
     rm ${pkgdatadir}/../ibus/component/ibus-avro.xml
-	rm ${pkgdatadir}/../glib-2.0/schemas/com.omicronlab.avro.gschema.xml
-	glib-compile-schemas ${pkgdatadir}/../glib-2.0/schemas/
-	rm -rf ${pkgdatadir}
+    rm ${pkgdatadir}/../glib-2.0/schemas/com.omicronlab.avro.gschema.xml
+    glib-compile-schemas ${pkgdatadir}/../glib-2.0/schemas/
+    rm -rf ${pkgdatadir}
 }
 
 if [[ $1 == 'i' ]]; then
