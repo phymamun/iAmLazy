@@ -5,7 +5,7 @@ echo -e "[+] Installing Oracle 11g XE..."
 sudo apt-get update -y
 # unzip oracle-xe-11.2.0-1.0.x86_64.rpm.zip
 sudo apt-get install alien libaio1 unixodbc -y
-# sudo alien --scripts -d oracle-*.rpm
+sudo alien --scripts -d oracle-*.rpm
 # sudo alien -i --scripts oracle-*.rpm
 
 sudo touch /sbin/chkconfig
@@ -28,7 +28,7 @@ fi
 update-rc.d oracle-xe defaults 80 01' | sudo tee /sbin/chkconfig
 
 
-echo -e "n[+] Done!"
+echo -e "\n[+] Done!"
 sudo chmod 755 /sbin/chkconfig
 
 echo -e "[+] Changing Kernel Parameters...\n"
@@ -66,12 +66,12 @@ sudo ln -s /usr/bin/awk /bin/awk
 sudo mkdir /var/lock/subsys
 sudo touch /var/lock/subsys/listener
 
-sysctl -p /etc/sysctl.d/60-oracle.conf
+sudo sysctl -p /etc/sysctl.d/60-oracle.conf
 
 echo -e "[+] Now installing the database..."
 
-sudo alien -i --scripts oracle-*.rpm
-# sudo dpkg --install oracle-xe_11.2.0-2_amd64.deb
+# sudo alien -i --scripts oracle-*.rpm
+# sudo dpkg --install oracle-*.deb
 sudo /etc/init.d/oracle-xe configure
 
 echo -e "[+] Writing Oracle Configurations..."
@@ -89,4 +89,4 @@ sudo service oracle-xe start
 
 sudo usermod -a -G dba $USER
 
-echo "\n[+] Good Luck..."
+echo -e "\n[+] Good Luck..."
