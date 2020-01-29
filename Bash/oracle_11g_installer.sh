@@ -71,7 +71,7 @@ sudo sysctl -p /etc/sysctl.d/60-oracle.conf
 echo -e "[+] Now installing the database..."
 
 # sudo alien -i --scripts oracle-*.rpm
-# sudo dpkg --install oracle-*.deb
+sudo dpkg --install oracle-*.deb
 sudo /etc/init.d/oracle-xe configure
 
 echo -e "[+] Writing Oracle Configurations..."
