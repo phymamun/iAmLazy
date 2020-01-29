@@ -7,6 +7,7 @@ install() {
 
 #   sudo apt-get install lxc-docker
   apt-get install docker-ce
+  docker login
   docker pull alexeiled/docker-oracle-xe-11g
 }
 
