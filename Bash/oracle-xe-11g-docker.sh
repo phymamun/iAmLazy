@@ -1,18 +1,24 @@
 #!/bin/bash
 
 install() {
+  sudo apt install curl -y
   curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
   echo 'deb [arch=amd64] https://download.docker.com/linux/debian buster stable' > /etc/apt/sources.list.d/docker.list
   sudo apt-get update -y
 
-#   sudo apt-get install lxc-docker
-  apt-get install docker-ce
+  # sudo apt-get install lxc-docker
+  apt-get install docker-ce -y
   docker login
-  docker pull alexeiled/docker-oracle-xe-11g
+  # docker pull alexeiled/docker-oracle-xe-11g
+  git clone https://github.com/orangehrm/docker-oracle-xe-11g.git ../../docker-oracle
+  cd ../../docker-oracle
+  sudo docker image build -t oracle-xe:1.0 .
+  docker run -d --shm-size=2g -p 1521:1521 -p 8080:8080 alexeiled/docker-oracle-xe-11g
+  docker container run --shm-size=2g --publish 1521:1521 --publish 8000:8080 --detach --name oracle oracle-xe:1.0
 }
 
 run() {
-  docker run -d -p 49160:22 -p 49161:1521 -p 49162:8080 alexeiled/docker-oracle-xe-11g
+  docker container run --shm-size=2g --publish 1521:1521 --publish 8000:8080 --detach --name oracle oracle-xe:1.0
 }
 
 if [[ $1 == 'i' ]]; then
