@@ -27,7 +27,6 @@ if [[ ! `tail -n1 $file | grep INIT` ]]; then
 fi
 update-rc.d oracle-xe defaults 80 01' | sudo tee /sbin/chkconfig
 
-
 echo -e "\n[+] Done!"
 sudo chmod 755 /sbin/chkconfig
 
