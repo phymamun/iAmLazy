@@ -12,6 +12,7 @@ install() {
   # docker pull alexeiled/docker-oracle-xe-11g
   git clone https://github.com/orangehrm/docker-oracle-xe-11g.git ../../docker-oracle
   cd ../../docker-oracle
+  sudo systemctl start docker
   sudo docker image build -t oracle-xe:1.0 .
   # sudo docker run -d --shm-size=2g -p 1521:1521 -p 8080:8080 alexeiled/docker-oracle-xe-11g
   sudo docker container run --shm-size=2g --publish 1521:1521 --publish 8000:8080 --detach --name oracle oracle-xe:1.0
