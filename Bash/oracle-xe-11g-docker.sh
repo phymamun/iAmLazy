@@ -7,7 +7,7 @@ install() {
   sudo apt-get update -y
 
   # sudo apt-get install lxc-docker
-  apt-get install docker-ce -y
+  sudo apt-get install docker-ce -y
   docker login
   # docker pull alexeiled/docker-oracle-xe-11g
   git clone https://github.com/orangehrm/docker-oracle-xe-11g.git ../../docker-oracle
