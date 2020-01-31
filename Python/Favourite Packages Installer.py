@@ -88,7 +88,7 @@ class Browser():
 		system('wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
 		# Installing Google Chrome
 		system('sudo dpkg -i google-chrome-stable_current_amd64.deb')
-		system('sudo apt install -f')
+		system('sudo apt install -fy')
 		remove('google-chrome-stable_current_amd64.deb')
 		#update()
 
