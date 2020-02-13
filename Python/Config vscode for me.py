@@ -56,7 +56,7 @@ def install():
 	c(cmd + 'ritwickdey.LiveServer' + f) # Live Server
 	
 	# PyLint
-	c('python3 -m pip install -U pylint--user'
+	c('python3 -m pip install -U pylint--user')
 	
 	"""
 		Themes
