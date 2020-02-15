@@ -1,9 +1,14 @@
 #!/bin/bash
 
-cat << "END"
+echo -e "\e[0;32m
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     # You need to download Oracle-JDK-8 First
     # Otherwise this package may not work
-END
+    # Download from: http://bit.ly/2OVMDRM
+    # And keep the tarball along with burp and this script
+    # Good Lock
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+\e[0m"
 
 install() {
     sudo mkdir -p /opt/jdk
