@@ -1,5 +1,5 @@
 <p align="center">
-<img title="Lazy Developer" src="https://imgur.com/download/RnpzpMh" />
+<img title="Lazy Developer" src="https://imgur.com/download/8OCI7lu" />
 </p>
 
 # Bash Scripts written from Lazyness stays here
@@ -17,8 +17,9 @@ echo -e $ME $SPEECH
 - Think
 
 ### Done
+- Oracle JAVA 8 installer for linux
 - Added Code::Blocks Installer
-- Added Theme Customizer on XFCE (Debian)
+- Added Theme Customizer on XFCE, Gnome (Debian Derivatives)
 - Added CI (git)
 - Added ibus-avro installer (For Mamun) [`~# ./Avro_Installer.sh i`]
 - Adder installer for popcorntime [`~# ./popcorntime.sh`]
