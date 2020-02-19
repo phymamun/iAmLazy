@@ -20,7 +20,7 @@ RED='\033[0m\033[1;31m'
 END='\033[0m'
 
 # Banner
-echo -e "$GREEN
+echo -e "${GREEN}
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
         Theme installer and autoconfig for XFCE4, Gnome
         This Package installs McOS Dark theme &
@@ -36,7 +36,7 @@ echo -e "$GREEN
         Bug report: ryeasin03@gmail.com
         Github: https://github.com/dreygur/iAmLazy 
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-$END"
+${END}"
 
 function distro () {
 	# Distro detector
@@ -52,7 +52,7 @@ function distro () {
 				DISTRO_NAME='debian'
 			elif echo ${DISTRO_STR} | grep -q 'fedora'; then
 				DISTRO_NAME='fedora'
-			elif echo $DISTRO_STR | grep -q ['arch','manjaro','antergos','parabola','anarchy']; then
+			elif echo ${DISTRO_STR} | grep -q ['arch','manjaro','antergos','parabola','anarchy']; then
 				DISTRO_NAME='arch'
 			fi
 			break
@@ -60,25 +60,25 @@ function distro () {
 	done
 	# plain-arch installation doesn't guarantee /etc/os-release
 	# but the filesystem pkg installs a blank /etc/arch-release
-	if [[ -z "$DISTRO_NAME" ]]; then
+	if [[ -z "${DISTRO_NAME}" ]]; then
 		if [[ -e /etc/arch-release ]]; then
 		DISTRO_NAME='arch'
 		fi
 	fi
-	echo $DISTRO_NAME
+	echo ${DISTRO_NAME}
 }
 
 function de () {
 	# Desktop Environment Detector
 	# Can detect 'xfce, kde, gnome and lxde'
 	
-	if [ "$XDG_CURRENT_DESKTOP" = "" ]; then
-		desktop=$( echo "$XDG_DATA_DIRS" | tr '[A-Z]' '[a-z]' | sed 's/.*\(xfce\|kde\|gnome\|lxde\).*/\1/' )
+	if [ "${XDG_CURRENT_DESKTOP}" = "" ]; then
+		desktop=$( echo "${XDG_DATA_DIRS}" | tr '[A-Z]' '[a-z]' | sed 's/.*\(xfce\|kde\|gnome\|lxde\).*/\1/' )
 	else
-		desktop=$( echo "$XDG_CURRENT_DESKTOP" | tr '[A-Z]' '[a-z]' | sed 's/.*\(xfce\|kde\|gnome\|lxde\).*/\1/' )
+		desktop=$( echo "${XDG_CURRENT_DESKTOP}" | tr '[A-Z]' '[a-z]' | sed 's/.*\(xfce\|kde\|gnome\|lxde\).*/\1/' )
 	fi
 
-	echo "$desktop" # Returns Current DE name
+	echo "${desktop}" # Returns Current DE name
 }
 
 function themes () {
@@ -109,56 +109,56 @@ function themes () {
 		wget -O dock.theme "https://github.com/dreygur/iAmLazy/raw/master/Assets/dock.theme"
 	fi
 
-	if [[ ! -e $HOME/.themes ]]; then
-		mkdir $HOME/.themes
+	if [[ ! -e ${HOME}/.themes ]]; then
+		mkdir ${HOME}/.themes
 	fi
 
-	if [[ ! -e $HOME/.icons ]]; then
-		mkdir $HOME/.icons
+	if [[ ! -e ${HOME}/.icons ]]; then
+		mkdir ${HOME}/.icons
 	fi
 	
-	if [[ ! -e $HOME/.backdrops ]]; then
-		mkdir $HOME/.backdrops
+	if [[ ! -e ${HOME}/.backdrops ]]; then
+		mkdir ${HOME}/.backdrops
 	fi
 
 	# Installs Flat-Remix icon pack
-	cp -f $DIR/Flat-Remix.tar.xz $HOME/.icons/
-	tar -xf $HOME/.icons/Flat-Remix.tar.xz -C $HOME/.icons/
+	cp -f ${DIR}/Flat-Remix.tar.xz ${HOME}/.icons/
+	tar -xf ${HOME}/.icons/Flat-Remix.tar.xz -C ${HOME}/.icons/
 
 	# Installs McMojave-circle-black icon pack
-	cp -f $DIR/McMojave-circle-black.tar.xz $HOME/.icons/
-	tar -xf $HOME/.icons/McMojave-circle-black.tar.xz -C $HOME/.icons/
+	cp -f ${DIR}/McMojave-circle-black.tar.xz ${HOME}/.icons/
+	tar -xf ${HOME}/.icons/McMojave-circle-black.tar.xz -C ${HOME}/.icons/
 
 	# Installs McOS-Dark Theme
 	if [[ `de` == 'xfce' ]]; then
-		cp -f $DIR/McOS-MJV-Dark-XFCE-Edition-2.3.tar.gz $HOME/.themes/
-		tar -xf $HOME/.themes/McOS-MJV-Dark-XFCE-Edition-2.3.tar.gz -C $HOME/.themes/
+		cp -f ${DIR}/McOS-MJV-Dark-XFCE-Edition-2.3.tar.gz ${HOME}/.themes/
+		tar -xf ${HOME}/.themes/McOS-MJV-Dark-XFCE-Edition-2.3.tar.gz -C ${HOME}/.themes/
 		# Clean the Directories
-		if [[ $DIR == '.' ]]; then
+		if [[ ${DIR} == '.' ]]; then
 			rm McOS-MJV-Dark-XFCE-Edition-2.3.tar.gz
 			# rm Flat-Remix.tar.xz
 			rm xubuntu-development.png
 			rm McMojave-circle-black.tar.xz
 		fi
-		rm $HOME/.themes/McOS-MJV-Dark-XFCE-Edition-2.3.tar.gz
+		rm ${HOME}/.themes/McOS-MJV-Dark-XFCE-Edition-2.3.tar.gz
 	elif [[ `de` == 'gnome' ]]; then
-		cp -f $DIR/Mc-OS-MJV-Dark-Gn3.32-V.2.1.tar.xz $HOME/.themes/
-		tar -xf $HOME/.themes/Mc-OS-MJV-Dark-Gn3.32-V.2.1.tar.xz -C $HOME/.themes/
+		cp -f ${DIR}/Mc-OS-MJV-Dark-Gn3.32-V.2.1.tar.xz ${HOME}/.themes/
+		tar -xf ${HOME}/.themes/Mc-OS-MJV-Dark-Gn3.32-V.2.1.tar.xz -C ${HOME}/.themes/
 		# Clean the Directories
-		if [[ $DIR == '.' ]]; then
+		if [[ ${DIR} == '.' ]]; then
 			rm Mc-OS-MJV-Dark-Gn3.32-V.2.1.tar.gz
 			# rm Flat-Remix.tar.xz
 			rm xubuntu-development.png
 			rm McMojave-circle-black.tar.xz
 		fi
-		rm $HOME/.themes/Mc-OS-MJV-Dark-Gn3.32-V.2.1.tar.xz
+		rm ${HOME}/.themes/Mc-OS-MJV-Dark-Gn3.32-V.2.1.tar.xz
 	fi
 	
 	# The Walpaper
-	cp $DIR/xubuntu-development.png $HOME/.backdrops
+	cp ${DIR}/xubuntu-development.png ${HOME}/.backdrops
 
 	# Clean the Directories
-	rm $HOME/.icons/Flat-Remix.tar.xz
+	rm ${HOME}/.icons/Flat-Remix.tar.xz
 }
 
 function install_plank () {
@@ -177,13 +177,13 @@ function install_plank () {
 	fi
 
 	# Plank Desktop Entry
-	mkdir -p $HOME/.config/autostart
-	sudo cp /usr/share/applications/plank.desktop $HOME/.config/autostart/ # For Current User
+	mkdir -p ${HOME}/.config/autostart
+	sudo cp /usr/share/applications/plank.desktop ${HOME}/.config/autostart/ # For Current User
 	# sudo cp /usr/share/applications/plank.desktop /etc/xdg/autostart/ # For all Users
 
 	# Plank Theme
-	mkdir $HOME/.local/share/plank/theme/Transparent-2.0.0
-	cp $DIR/dock.theme $HOME/.local/share/plank/theme/Transparent-2.0.0/
+	mkdir -p ${HOME}/.local/share/plank/theme/Transparent-2.0.0
+	cp ${DIR}/dock.theme ${HOME}/.local/share/plank/theme/Transparent-2.0.0/
 
 	echo -e "Starting \"Plank\"\n"
 	# /usr/bin/plank & disown
@@ -211,7 +211,7 @@ function xfce_config () {
 	xfconf-query -c thunar -p /last-location-bar -s "ThunarLocationButtons"
 	
 	# Configure Desktop
-	xfconf-query -c xfce4-desktop --create -p /backdrop/screen0/monitor0/workspace0/last-image -s "/usr/share/xfce4/backdrops/xubuntu-development.png"
+	xfconf-query -c xfce4-desktop --create -p /backdrop/screen0/monitor0/workspace0/last-image -s "${HOME}/.backdrops/xubuntu-development.png"
 	xfconf-query -c xfce4-desktop --create -p /desktop-icons/file-icons/show-filesystem -s "false"
 	xfconf-query -c xfce4-desktop --create -p /desktop-icons/file-icons/show-removable -s "false"
 	xfconf-query -c xfce4-desktop --create -p /desktop-icons/style -s "2"
@@ -241,10 +241,10 @@ function gnome_config() {
 	
 	# Set the Desktop Background
 	gsettings set org.gnome.desktop.background picture-options 'centered'
-	gsettings set org.gnome.desktop.background picture-uri "$HOME/.backdrops/xubuntu-development.png"
+	gsettings set org.gnome.desktop.background picture-uri "${HOME}/.backdrops/xubuntu-development.png"
 	
 	# Set Theme
-	# sudo cp $HOME/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas/org.gnome.shell.extensions.user-theme.gschema.xml /usr/share/glib-2.0/schemas
+	# sudo cp ${HOME}/.local/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas/org.gnome.shell.extensions.user-theme.gschema.xml /usr/share/glib-2.0/schemas
 	# sudo glib-compile-schemas /usr/share/glib-2.0/schemas
 	gsettings set org.gnome.shell.extensions.user-theme name "Mc-OS-MJV-Dark-Gn3.32-V.2.1"
 	gsettings set org.gnome.desktop.interface gtk-theme "Mc-OS-MJV-Dark-Gn3.32-V.2.1"
@@ -279,7 +279,7 @@ function kde_config() {
 	kwriteconfig --file kdeglobals --group Icons --key Theme "breeze-dark" # Default
 
 	# Changing Walpaper
-	kwriteconfig --file plasma-desktop-appletsrc --group Containments --group 1 --group Wallpaper --group image --key wallpaper "$HOME/.backdrops/xubuntu-development.png"
+	kwriteconfig --file plasma-desktop-appletsrc --group Containments --group 1 --group Wallpaper --group image --key wallpaper "${HOME}/.backdrops/xubuntu-development.png"
 
 	# Reload dbus config for kde
 	dbus-send --dest=org.kde.kwin /KWin org.kde.KWin.reloadConfig
