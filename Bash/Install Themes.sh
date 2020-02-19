@@ -46,14 +46,12 @@ function distro () {
 	# Checking Current Distro
 	# cat /etc/*-release | grep "debian" #Outputs ID_LIKE=debian
 	for line in `cat /etc/*-release`; do
-		if [[ $line =~ ^(NAME|DISTRIB_ID)=(.+)$ ]]; then
+		if [[ ${line} =~ ^(NAME|DISTRIB_ID)=(.+)$ ]]; then
 			DISTRO_STR=${BASH_REMATCH[2]}
-			if echo $DISTRO_STR | grep -q ['ubuntu','debian','mint']; then
+			if echo ${DISTRO_STR} | grep -q ['ubuntu','debian','mint']; then
 				DISTRO_NAME='debian'
-			elif echo $DISTRO_STR | grep -q ['fedora']; then
+			elif echo ${DISTRO_STR} | grep -q ['fedora']; then
 				DISTRO_NAME='fedora'
-			elif echo $DISTRO_STR | grep -q ['arch','manjaro','antergos','parabola','anarchy']; then
-				DISTRO_NAME='arch'
 			fi
 			break
 		fi
