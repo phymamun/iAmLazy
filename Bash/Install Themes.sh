@@ -211,14 +211,14 @@ function xfce_config () {
 	xfconf-query -c thunar -p /last-location-bar -s "ThunarLocationButtons"
 	
 	# Configure Desktop
-	xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "${HOME}/.backdrops/xubuntu-development.png" -t "str" --create
+	xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/workspace0/last-image -s "${HOME}/.backdrops/xubuntu-development.png" -t "string" --create
 	xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-filesystem -t "bool" -s "false" --create
 	xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-removable -t "bool" -s "false" --create
-	xfconf-query -c xfce4-desktop -p /desktop-icons/style -t "uint" -s "2" --create
+	xfconf-query -c xfce4-desktop -p /desktop-icons/style -t "int" -s "2" --create
 
 	# Configure Panel
-	xfconf-query -c xfce4-panel -p /panels/panel-0/position -t "str" -s "p=6;x=0;y=0" --create
-	xfconf-query -c xfce4-panel -p /panels/panel-0/length -t "uint" -s "100" --create
+	xfconf-query -c xfce4-panel -p /panels/panel-0/position -t "string" -s "p=6;x=0;y=0" --create
+	xfconf-query -c xfce4-panel -p /panels/panel-0/length -t "int" -s "100" --create
 	xfconf-query -c xfce4-panel -p /panels/panel-0/position-locked -t "bool" -s "true" --create
 
 	# Arrange Icons & Reload the Desktop
