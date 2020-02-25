@@ -54,7 +54,8 @@ def install():
 	c(cmd + 'formulahendry.terminal' + f) # VSCode Terminal
 	c(cmd + 'psioniq.psi-header' + f) # psioniq File Header
 	c(cmd + 'ritwickdey.LiveServer' + f) # Live Server
-	
+	c(cmd + 'alexcvzz.vscode-sqlite' + f) # SQLite Browser
+
 	# PyLint
 	c('python3 -m pip install -U pylint--user')
 	
