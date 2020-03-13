@@ -1,4 +1,4 @@
-#!usr/bin/python3
+#!/usr/bin/env python3
 
 """
 	Installer for my favourite packages
@@ -8,10 +8,9 @@
 		* Arch (Not Yet)
 	It's a helper for me
 	if i somehow destroy my system (it happens to me)
-	Then I would be able to automate the
-	boring staffs.
-	Author: Rakibul Yeasin (Totul)
-	FB: https://www.facebook.com/rakibul03
+	Then I would be able to automate the boring staffs.
+	Author: Rakibul Yeasin
+	FB: https://www.facebook.com/dreygur
 
 	***Not Licensed***
 """
@@ -29,7 +28,10 @@ class Primary():
 		# Class Initialization
 		pass
 
-	def primary(self):
+	def deb_primary(self):
+		"""
+		Some Basic Operations on a newly installed Distro
+		"""
 		#   This will install add-apt-repository
 		system('sudo apt install -y software-properties-common')
 		system('sudo apt install -y python-software-properties')
@@ -40,13 +42,17 @@ class Primary():
 		system('sudo apt install -y curl php5-curl')
 		system('sudo apt install -y gcc g++')
 	
-	def qbittorrent(self):
+	def deb_qbittorrent(self):
+		"""
+		Installs and cobfigures qBittorrent Client
+		"""
 		#   This will install qBittorrent Stable
 		system('sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable -y')
 		update()
 		system('sudo apt-get install qbittorrent -y')
+		system('cp ../Assets/qBittorrent.conf ~/.config/qBittorrent/')
 
-	def libre_office(self):
+	def deb_libre_office(self):
 		#   Installs Libre Office
 		#   The replacement of Microsoft Office
 		system('sudo add-apt-repository ppa:libreoffice/ppa -y')
@@ -64,13 +70,13 @@ class Media():
 		# Class Initialization
 		pass
 
-	def rhythmbox(self):
+	def deb_rhythmbox(self):
 		#   Rhythnbox - Music Player
 		system('sudo add-apt-repository ppa:fossfreedom/rhythmbox -y')
 		update()
 		system('sudo apt install rhythmbox -y')
 
-	def vlc(self):
+	def deb_vlc(self):
 		#   VLC - Video Player
 		update()
 		# Install VLC and VLC-Browser Plugin
@@ -83,7 +89,7 @@ class Browser():
 		# Class Initialization
 		pass
 
-	def chrome(self):
+	def deb_chrome(self):
 		#   Installs Google Chrome
 		system('wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb')
 		# Installing Google Chrome
@@ -92,7 +98,7 @@ class Browser():
 		remove('google-chrome-stable_current_amd64.deb')
 		#update()
 
-	def firefox(self):
+	def deb_firefox(self):
 		#   Removes Firefox-ESR and installs Firefox Quantum
 		# Uninstalls Firefox ESR from Debian/Ubuntu/Mint/Kali
 		system('sudo apt remove --purge firefox -y')
@@ -107,7 +113,7 @@ class IDE():
 		# Class Initialization
 		pass
 
-	def vscode(self):
+	def deb_vscode(self):
 		# Installs Microsoft Visual Studio Code
 		# Download Deb Package
 		system('wget -O vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868')
@@ -116,7 +122,7 @@ class IDE():
 		system('sudo apt install -fy')
 		system('rm vscode.deb')
 
-	def subl(self):
+	def deb_subl(self):
 		# Installs Sublime Text-3 Stable
 		# Install the GPG Key
 		system('wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -')
@@ -135,12 +141,12 @@ class ZSH():
 		# Class Initialization
 		pass
 
-	def install(self):
+	def deb_install(self):
 		# Installs ZSH Shell
 		system('sudo apt-get install zsh -y')
 		# Changes Default shell to zsh from bash
 
-	def custom_zsh(self):
+	def deb_custom_zsh(self):
 		# Installs and customize zsh shell
 		_current_directory = getcwd()
 		# Downloads and Copies oh-my-zsh plugin
@@ -149,7 +155,7 @@ class ZSH():
 		# Copy the Configuration file to Home Directory
 		system('sudo cp ' + _current_directory + '/.zshrc ~/')
 
-	def zsh_fonts(self):
+	def deb_zsh_fonts(self):
 		# Installs the required pakages for oh_my_zsh
 		# Installs powerlevel9k theme
 		system('git clone https://github.com/bhilburn/powerlevel9k.git \
@@ -165,22 +171,27 @@ class ZSH():
 		# Install the fontconfig file
 		system('mkdir -p ~/.config/fontconfig/conf.d/')
 		system('sudo mv -f 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/')
-	def change_shell(self):
+	def deb_change_shell(self):
 		# Changing the Default shell from bash to zsh
 		system('chsh -s $(which zsh)')
 
-"""
-def get_codename():
+def get_distro():
 	#   This function will get the codename of running Distro
-	info = get_lsb_information()
-	return info['CODENAME']
-"""
+	info = get_distro_information()
+	return info['ID']
 
 def update():
-	#   This function will download the package lists from the repositories and
-	#   "update" them to get information on the newest versions of packages and
-	#   their dependencies.
-	system('sudo apt-get -y update')
+	"""
+	  This function will download the package lists from the repositories and
+	  "update" them to get information on the newest versions of packages and
+	  their dependencies.
+	"""
+	distro = get_distro()
+
+	if distro == "Debian":
+		system('sudo apt-get -y update')
+	elif distro = "Arch":
+		system('sudo pacman -Syu --noconfirm')
 
 def banner():
 	#   Banner for the script
@@ -206,59 +217,75 @@ def main():
 
 	banner()
 	permission = str(input('Are you ready to install??? (Y/n) ')).lower()
+	distro = get_distro()
 
 	if permission == 'y':
 		try:
-			print('Installing Primary Packages...\n')
-			prm = Primary()
-			prm.primary()
-			print('Done!\nInstalling "QBittorrent"...')
-			prm.qbittorrent()
-			print('QBittorrent installed.\nInstalling "Libre Office"')
-			prm.libre_office()
-			print('"Libre Office" installed.')
+			if distro == 'Debian':
+				print('Installing Primary Packages...\n')
+				prm = Primary()
+				prm.deb_primary()
+				print('Done!\nInstalling "QBittorrent"...')
+				prm.deb_qbittorrent()
+				print('QBittorrent installed.\nInstalling "Libre Office"')
+				prm.deb_libre_office()
+				print('"Libre Office" installed.')
+			elif distro == 'Arch':
+				pass
 		except:
 			print('Sorry, Something went wrong!\nPrimary Packages Installation Failed.')
 		
 		try:
-			print('Installing Browser...\n')
-			brw = Browser()
-			print('Installing "Firefox"...')
-			brw.firefox()
-			print('"Firefox" installed.\nInstalling "Chrome"...')
-			brw.chrome()
-			print('Done! Browser Installed.')
+			if distro == 'Debian':
+				print('Installing Browser...\n')
+				brw = Browser()
+				print('Installing "Firefox"...')
+				brw.deb_firefox()
+				print('"Firefox" installed.\nInstalling "Chrome"...')
+				brw.deb_chrome()
+				print('Done! Browser Installed.')
+			elif distro == 'Arch':
+				pass
 		except:
 			print('Sorry, Something went wrong!\nBrowser Installation Failed.')
 
 		try:
-			print('Installing Media Players...')
-			mdw = Media()
-			print('Installing "VLC Media Player"...')
-			mdw.vlc()
-			print('"VLC Media Player" installed.\nInstalling "Rhythmbox"...')
-			mdw.rhythmbox()
-			print('"Rhythbox" installed.')
+			if distro == 'Debian':
+				print('Installing Media Players...')
+				mdw = Media()
+				print('Installing "VLC Media Player"...')
+				mdw.deb_vlc()
+				print('"VLC Media Player" installed.\nInstalling "Rhythmbox"...')
+				mdw.deb_rhythmbox()
+				print('"Rhythbox" installed.')
+			elif distro == 'Arch':
+				pass
 		except:
 			print('Sorry, Something went wrong!\nMedia Player installation Failed.')
 
 		try:
-			print('Installing IDE\'s')
-			ide = IDE()
-			print('Installing "Sublime Text 3 Stable"...')
-			ide.subl()
-			print('"Sublime Text 3 Stable" installed.\nInstalling "Microsoft VSCode"...')
-			ide.vscode()
-			print('"Microsoft VSCode" installed.')
+			if distro == 'Debian':
+				print('Installing IDE\'s')
+				ide = IDE()
+				print('Installing "Sublime Text 3 Stable"...')
+				ide.deb_subl()
+				print('"Sublime Text 3 Stable" installed.\nInstalling "Microsoft VSCode"...')
+				ide.deb_vscode()
+				print('"Microsoft VSCode" installed.')
+			elif distro == 'Arch':
+				pass
 		except:
 			print('Sorry, Something went wrong!\nIDE installation Failed.')
 
 		try:
-			print('Installing ZSH...')
-			zsh = ZSH()
-			zsh.install()
-			zsh.custom_zsh()
-			zsh.zsh_fonts()
+			if distro == 'Debian':
+				print('Installing ZSH...')
+				zsh = ZSH()
+				zsh.deb_install()
+				zsh.deb_custom_zsh()
+				zsh.deb_zsh_fonts()
+			elif distro == 'Arch':
+				pass
 		except :
 			print('Sorry Something went wrong. ZSH Installation or Customization failed.')
 
