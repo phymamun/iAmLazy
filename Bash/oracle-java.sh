@@ -14,6 +14,7 @@
 java_dist="jdk-8u241-linux-x64.tar.gz"
 java_dir="/usr/lib/jvm"
 java_installed_dir="$java_dir/jdk1.8.0_241"
+jdk_major_version="8"
 
 # Make sure the script is running as root.
 if [ "$UID" -ne "0" ]; then
@@ -38,7 +39,7 @@ EOF
 }
 
 function install() {
-    wget "https://cdn-33.anonfile.com/Zak01daco9/efe3d851-1581936292/jdk-8u241-linux-x64.tar.gz" -O $java_dist
+    # wget "https://cdn-33.anonfile.com/Zak01daco9/efe3d851-1581936292/jdk-8u241-linux-x64.tar.gz" -O $java_dist
     # Create Java Installation directory
     mkdir -p $java_dir
 
