@@ -38,7 +38,7 @@ EOF
 }
 
 function install() {
-    # wget "https://cdn-33.anonfile.com/Zak01daco9/efe3d851-1581936292/jdk-8u241-linux-x64.tar.gz" -O $java_dist
+    wget "https://cdn-33.anonfile.com/Zak01daco9/efe3d851-1581936292/jdk-8u241-linux-x64.tar.gz" -O $java_dist
     # Create Java Installation directory
     mkdir -p $java_dir
 
