@@ -5,7 +5,7 @@
 # Created: Saturday, 3rd August 2019 2:38:42 pm
 # Author: Rakibul Yeasin (ryeasin03@gmail.com)
 # -----
-# Last Modified: Tuesday, 24th March 2020 10:18:31 pm
+# Last Modified: Tuesday, 24th March 2020 10:25:20 pm
 # Modified By: Rakibul Yeasin (ryeasin03@gmail.com)
 # -----
 # Copyright (c) 2019 Slishee
@@ -77,8 +77,10 @@ def configure():
 	if _platform.startswith('linux'):
 		path = os.environ['HOME'] + '/.config/Code/User/settings.json'
 	elif _platform.startswith('win'):
-		# path = r'%APPDATA%\Code\User\settings.json'
-		path = os.path.join("%APPDATA%", "Code", "User", "settings.json")
+		dir_path = "%APPDATA %\Code\User"
+		path = r'%APPDATA%\Code\User\settings.json'
+		os.mkdirs(dir_path)
+		# path = os.path.join("%APPDATA%", "Code", "User", "settings.json")
 	elif _platform == 'darwin':
 		path = os.environ['HOME'] + '/Library/Application Support/Code/User/settings.json'
 	try:
