@@ -58,9 +58,9 @@ def install():
 
 	# PyLint
 	if _platform.startswith('linux') or _platform == 'darwin':
-		c('python3 -m pip install -U pylint--user')
+		c('python3 -m pip install -U pylint --user')
 	elif _platform.startswith('win'):
-		c('python -m pip install -U pylint--user')
+		c('python -m pip install -U pylint --user')
 
 	"""
 		Themes
